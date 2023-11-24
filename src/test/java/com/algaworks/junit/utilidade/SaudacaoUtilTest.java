@@ -7,8 +7,9 @@ import org.junit.jupiter.api.Test;
 public class SaudacaoUtilTest {
 	
 	@Test
-	public void saudar() {
-		String saudacao = SaudacaoUtil.saudar(9);
+	public void deveRetornarBomDiaApartir5Horas() {
+//		Int saudacao = 5;
+		String saudacao = SaudacaoUtil.saudar(5);
 		System.out.println(saudacao);
 		assertEquals("Bom dia", saudacao, "Falha no teste! Saudação incorrenta!");
 	}
@@ -22,7 +23,7 @@ public class SaudacaoUtilTest {
 	
 	@Test
 	public void deveRetornarBoaNoite() {
-		String saudacao = SaudacaoUtil.saudar(23);
+		String saudacao = SaudacaoUtil.saudar(2);
 		System.out.println(saudacao);
 		assertEquals("Boa noite", saudacao, "Falha no teste! Saudação incorrenta!");
 	}

@@ -50,5 +50,12 @@ public class CadastroEditorComMockTest {
 		Editor editorSalvo = cadastroEditor.criar(editor);
 		assertEquals(1L, editorSalvo.getId());
 	}
+	
+	@Test
+	void deveChamarMetodoSalvarDoArmazenamentoQuandoEditorForValido() {
+		cadastroEditor.criar(editor);
+		Mockito.verify(armazenamentoEditor, Mockito.times(1))
+				.salvar(Mockito.eq(editor));
+	}
 
 }

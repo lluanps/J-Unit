@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import com.algaworks.junit.blog.exception.RegraNegocioException;
 import com.algaworks.junit.blog.modelo.Editor;
 
-public class CadastroEditorTest {
+public class CadastroEditorComStubTest {
 	
 	static CadastroEditor cadastroEditor;
 	static ArmazenamentoEditorFixoEmMemoria armazenamentoEditor;

@@ -51,7 +51,6 @@ public class CadastroEditorTest {
 	public void deveLancarExceptionQuandoEmailJaExistente() {
 		editor.setEmail("luan.existe@gmail.com");
 		assertThrows(RegraNegocioException.class, ()-> cadastroEditor.criar(editor));
-
 	}
 	
 	@Test

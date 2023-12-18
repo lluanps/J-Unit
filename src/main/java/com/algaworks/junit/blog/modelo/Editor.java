@@ -13,7 +13,6 @@ public class Editor {
     private OffsetDateTime dataCriacao = OffsetDateTime.now();
 
     public Editor() {
-
     }
 
     public Editor(String nome, String email, BigDecimal valorPagoPorPalavra, boolean premium) {

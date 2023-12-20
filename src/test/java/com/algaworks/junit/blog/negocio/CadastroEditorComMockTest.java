@@ -3,9 +3,13 @@ package com.algaworks.junit.blog.negocio;
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -28,6 +32,9 @@ public class CadastroEditorComMockTest {
 	//junta os mocks dentro cadastroEditor, criando uma instancia concreto com os mocks acimas, sendo passados como parametros
 	@InjectMocks
 	CadastroEditor cadastroEditor;
+	
+	@Captor//injeta e cria um argumento captor a cada novo test
+	ArgumentCaptor<Mensagem> mensagemArgumentCaptor;
 	
 	@BeforeEach
 	void beforeEach() {
@@ -66,6 +73,19 @@ public class CadastroEditorComMockTest {
 		assertAll("Não deve enviar email quando lancar exception do armazenamento ",
 				() -> assertThrows(RuntimeException.class, () -> cadastroEditor.criar(editor)),
 				() -> Mockito.verify(gerenciadorEnvioEmail, Mockito.never()).enviarEmail(Mockito.any()));
+	}
+	
+	@Test
+	void deveEnviarEmailComDestinoAoEditorQuandoOEditorForValidoAoCadastrar() {
+		ArgumentCaptor<Mensagem> mensagemArgumentCaptor = ArgumentCaptor.forClass(Mensagem.class);
+		
+		Editor editorSalvo = cadastroEditor.criar(editor);
+		
+		Mockito.verify(gerenciadorEnvioEmail).enviarEmail(mensagemArgumentCaptor.capture());//pega o argumento que foi passado na execução do metodo criar
+
+		Mensagem mensagem = mensagemArgumentCaptor.getValue();
+		
+		assertEquals(editorSalvo.getEmail(), mensagem.getDestinatario());
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.algaworks.junit.blog.negocio;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
@@ -16,6 +17,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.algaworks.junit.blog.armazenamento.ArmazenamentoEditor;
+import com.algaworks.junit.blog.exception.RegraNegocioException;
 import com.algaworks.junit.blog.modelo.Editor;
 
 @ExtendWith(MockitoExtension.class)
@@ -86,6 +88,28 @@ public class CadastroEditorComMockTest {
 		Mensagem mensagem = mensagemArgumentCaptor.getValue();
 		
 		assertEquals(editorSalvo.getEmail(), mensagem.getDestinatario());
+	}
+	
+	@Test
+	void deveVerificarEmailQuandoUmEditorValidoEhCadastrado() {
+		Editor editorSpy = Mockito.spy(editor);
+		
+		cadastroEditor.criar(editorSpy);
+		
+		Mockito.verify(editorSpy, Mockito.atLeast(1)).getEmail();
+	}
+	
+	@Test
+	void deveLancarExceptionQuandoEmailExistenteJaFoiCadastrado() {
+		Mockito.when(armazenamentoEditor.encontrarPorEmail("luan@gmail.com"))
+				.thenReturn(Optional.empty())
+				.thenReturn(Optional.of(editor));
+		
+		Editor editorComEmailExistente = new Editor(null, "Luan", "luan@gmail.com", BigDecimal.TEN, true);
+		
+		cadastroEditor.criar(editor);
+		
+		assertThrows(RegraNegocioException.class, () -> cadastroEditor.criar(editorComEmailExistente));
 	}
 
 }

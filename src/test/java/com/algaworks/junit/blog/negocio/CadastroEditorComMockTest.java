@@ -57,5 +57,15 @@ public class CadastroEditorComMockTest {
 		Mockito.verify(armazenamentoEditor, Mockito.times(1))
 				.salvar(Mockito.eq(editor));
 	}
+	
+	@Test
+	void naoDeveEnviarEmailQuandoLancadoUmaException() {
+		Mockito.when(armazenamentoEditor.salvar(editor))
+				.thenThrow(new RuntimeException());
+
+		assertAll("Não deve enviar email quando lancar exception do armazenamento ",
+				() -> assertThrows(RuntimeException.class, () -> cadastroEditor.criar(editor)),
+				() -> Mockito.verify(gerenciadorEnvioEmail, Mockito.never()).enviarEmail(Mockito.any()));
+	}
 
 }

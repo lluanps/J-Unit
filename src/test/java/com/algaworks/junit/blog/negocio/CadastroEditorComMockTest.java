@@ -5,12 +5,14 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.mockingDetails;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
+import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -110,6 +112,16 @@ public class CadastroEditorComMockTest {
 		cadastroEditor.criar(editor);
 		
 		assertThrows(RegraNegocioException.class, () -> cadastroEditor.criar(editorComEmailExistente));
+	}
+	
+	@Test
+	void deveEnviarEmailAposSalvarQuandoEditorForValido() {
+		cadastroEditor.criar(editor);
+		
+		InOrder inOrder = Mockito.inOrder(armazenamentoEditor, gerenciadorEnvioEmail);
+		
+		inOrder.verify(armazenamentoEditor, Mockito.times(1)).salvar(editor);
+		inOrder.verify(gerenciadorEnvioEmail, Mockito.times(1)).enviarEmail(Mockito.any(Mensagem.class));
 	}
 
 }

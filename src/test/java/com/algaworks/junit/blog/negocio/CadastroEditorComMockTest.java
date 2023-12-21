@@ -1,13 +1,13 @@
 package com.algaworks.junit.blog.negocio;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
 import java.math.BigDecimal;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.mockingDetails;
-
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -16,9 +16,11 @@ import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.algaworks.junit.blog.armazenamento.ArmazenamentoEditor;
+import com.algaworks.junit.blog.exception.EditorNaoEncontradoException;
 import com.algaworks.junit.blog.exception.RegraNegocioException;
 import com.algaworks.junit.blog.modelo.Editor;
 

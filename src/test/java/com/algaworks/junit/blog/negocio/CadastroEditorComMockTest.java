@@ -1,13 +1,13 @@
 package com.algaworks.junit.blog.negocio;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.math.BigDecimal;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -20,14 +20,14 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.algaworks.junit.blog.armazenamento.ArmazenamentoEditor;
-import com.algaworks.junit.blog.exception.EditorNaoEncontradoException;
 import com.algaworks.junit.blog.exception.RegraNegocioException;
 import com.algaworks.junit.blog.modelo.Editor;
 
 @ExtendWith(MockitoExtension.class)
 public class CadastroEditorComMockTest {
 	
-	Editor editor;
+	@Spy
+	Editor editor = EditorTestData.umEditorNovo();
 	
 	@Mock
 	ArmazenamentoEditor armazenamentoEditor;
@@ -109,7 +109,7 @@ public class CadastroEditorComMockTest {
 				.thenReturn(Optional.empty())
 				.thenReturn(Optional.of(editor));
 		
-		Editor editorComEmailExistente = new Editor(null, "Luan", "luan@gmail.com", BigDecimal.TEN, true);
+		Editor editorComEmailExistente = EditorTestData.umEditorNovo();
 		
 		cadastroEditor.criar(editor);
 		

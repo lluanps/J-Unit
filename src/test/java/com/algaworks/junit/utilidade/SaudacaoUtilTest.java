@@ -16,13 +16,16 @@ public class SaudacaoUtilTest {
 	public void deveRetornarBomDiaApartir5Horas() {
 //		Int saudacao = 5;
 		String saudacao = SaudacaoUtil.saudar(5);
-		System.out.println(saudacao);
-		assertEquals("Bom dia", saudacao, "Falha no teste! Saudação incorrenta!");
+//		assertEquals("Bom dia", saudacao, "Falha no teste! Saudação incorrenta!");
+		
+		String saudacaoCorreta = "Bom dia";
 		
 		//AssertJ
 		Assertions.assertThat(saudacao)
-			.withFailMessage("Saudação incorreta")//customizacao da msg de erro(ao usar msg customizada não é mostrado a comparacao dos valores)
-			.isEqualTo("Bom dia");//pede primeiro o resultado e depois o resultado esperado
+//			.withFailMessage("Saudação incorreta")//customizacao da msg de erro(ao usar msg customizada não é mostrado a comparacao dos valores)
+			.as("Validando se a saudação é %s", saudacaoCorreta)
+			.withFailMessage("Saudação incorrera, Resultado: %s", saudacao)
+			.isEqualTo(saudacaoCorreta);//pede primeiro o resultado e depois o resultado esperado
 	}
 	
 	@Test

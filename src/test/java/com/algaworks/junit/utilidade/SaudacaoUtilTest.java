@@ -2,6 +2,7 @@ package com.algaworks.junit.utilidade;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -17,6 +18,11 @@ public class SaudacaoUtilTest {
 		String saudacao = SaudacaoUtil.saudar(5);
 		System.out.println(saudacao);
 		assertEquals("Bom dia", saudacao, "Falha no teste! Saudação incorrenta!");
+		
+		//AssertJ
+		Assertions.assertThat(saudacao)
+			.withFailMessage("Saudação incorreta")//customizacao da msg de erro(ao usar msg customizada não é mostrado a comparacao dos valores)
+			.isEqualTo("Bom dia");//pede primeiro o resultado e depois o resultado esperado
 	}
 	
 	@Test

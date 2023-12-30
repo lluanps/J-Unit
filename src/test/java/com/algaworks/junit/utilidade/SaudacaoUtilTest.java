@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 @DisplayName("Testes no utilitário de saudação")
 public class SaudacaoUtilTest {
@@ -43,6 +45,14 @@ public class SaudacaoUtilTest {
 	@Test
 	public void naoDeveLancarException() {
 		assertDoesNotThrow(() -> SaudacaoUtil.saudar(0));
+	}
+	
+	//Testes parametrizados
+	@ParameterizedTest
+	@ValueSource(ints = {5, 6, 7, 8, 9, 10, 11})//roda o teste para cada valor
+	public void deveRetornarBomDiaQuandoSudar(int hora) {
+		String saudacao = SaudacaoUtil.saudar(hora);
+		assertEquals("Bom dia", saudacao);
 	}
 
 }

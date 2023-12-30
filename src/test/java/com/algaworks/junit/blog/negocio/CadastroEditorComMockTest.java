@@ -27,7 +27,7 @@ import com.algaworks.junit.blog.modelo.Editor;
 public class CadastroEditorComMockTest {
 	
 	@Spy
-	Editor editor = EditorTestData.umEditorNovo();
+	Editor editor = EditorTestData.umEditorNovo().build();
 	
 	@Mock
 	ArmazenamentoEditor armazenamentoEditor;
@@ -109,7 +109,7 @@ public class CadastroEditorComMockTest {
 				.thenReturn(Optional.empty())
 				.thenReturn(Optional.of(editor));
 		
-		Editor editorComEmailExistente = EditorTestData.umEditorNovo();
+		Editor editorComEmailExistente = EditorTestData.umEditorNovo().build();
 		
 		cadastroEditor.criar(editor);
 		

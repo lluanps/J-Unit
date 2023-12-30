@@ -1,6 +1,7 @@
 package com.algaworks.junit.utilidade;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -18,14 +19,12 @@ public class SaudacaoUtilTest {
 		String saudacao = SaudacaoUtil.saudar(5);
 //		assertEquals("Bom dia", saudacao, "Falha no teste! Saudação incorrenta!");
 		
-		String saudacaoCorreta = "Bom dia";
-		
 		//AssertJ
-		Assertions.assertThat(saudacao)
+		Assertions.assertThat(saudacao).is(SaudacaoUtilConditions.igualBomDia());
 //			.withFailMessage("Saudação incorreta")//customizacao da msg de erro(ao usar msg customizada não é mostrado a comparacao dos valores)
-			.as("Validando se a saudação é %s", saudacaoCorreta)
-			.withFailMessage("Saudação incorrera, Resultado: %s", saudacao)
-			.isEqualTo(saudacaoCorreta);//pede primeiro o resultado e depois o resultado esperado
+//			.as("Validando se a saudação é %s", saudacaoCorreta)
+//			.withFailMessage("Saudação incorrera, Resultado: %s", saudacao)
+//			.isEqualTo(saudacaoCorreta);//pede primeiro o resultado e depois o resultado esperado
 	}
 	
 	@Test

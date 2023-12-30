@@ -44,8 +44,12 @@ public class SaudacaoUtilTest {
 	
 	@Test
 	public void deveLancarException() {
-		IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> SaudacaoUtil.saudar(-10));
-		assertEquals("Hora inválida", illegalArgumentException.getMessage());
+//		IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> SaudacaoUtil.saudar(-10));
+//		assertEquals("Hora inválida", illegalArgumentException.getMessage());
+	
+		//AssertJ
+		IllegalArgumentException e = Assertions.catchThrowableOfType(() -> SaudacaoUtil.saudar(-10), IllegalArgumentException.class);
+		Assertions.assertThat(e).hasMessage("Hora inválida");
 	}
 	
 	@Test
